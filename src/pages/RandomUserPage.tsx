@@ -19,9 +19,9 @@ export default function RandomUserPage() {
       `https://randomuser.me/api/?results=${genAmount}`
     );
     setIsLoading(false);
-    const users = resp.data.results;
-    const cleanedUsers = users.map((user) => cleanUser(user));
-    setUsers(cleanedUsers);
+    const randData = resp.data.results;
+    const cleanedUsers = randData.map((data: any) => cleanUser(data));
+    setUsers(JSON.stringify(cleanedUsers));
     localStorage.setItem("randAmount", genAmount.toString());
   };
 
@@ -46,7 +46,7 @@ export default function RandomUserPage() {
       )}
       {users &&
         !isLoading &&
-        users.map((user) => (
+        JSON.parse(users).map((user: any) => (
           <UserCard
             name={user.name}
             imgUrl={user.imgUrl}
